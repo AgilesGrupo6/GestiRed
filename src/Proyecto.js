@@ -10,16 +10,29 @@ class Proyecto extends Component {
     this.state = {
       project:null
     };
+
+    this.getProject = this.getProject.bind(this);
   }
 
-
-  componentDidMount(){
+  getProject(){
     fetch(urlBase+`gestired/project/${this.props.id}/`)
       .then((res) => {
         return res.json();
       })
       .then((json) => this.setState({project:json}))
       .catch((err) => console.log(err));
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.id !== prevProps.id){
+      this.getProject();
+    }
+  }
+
+  componentDidMount(){
+    if(this.props.id!=0){
+      this.getProject();
+    }
   }
   
   render() {

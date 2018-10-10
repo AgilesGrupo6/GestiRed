@@ -31,6 +31,9 @@ export default class CardRecurso extends Component {
     else if (this.props.recurso.tipoRecurso.includes('ideo')){
       return '/filevideo.png';      
     }
+    else{
+      return 'resource.png';
+    }
   }
 
   render() {
