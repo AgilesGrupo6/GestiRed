@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CardRecurso from './CardRecurso';
 import Grid from '@material-ui/core/Grid';
-
-const urlBase = 'http://127.0.0.1:8000/';
 
 class GridRecursos extends Component {
   constructor(props){
@@ -36,5 +35,9 @@ class GridRecursos extends Component {
     }
   }
 }
+
+GridRecursos.propTypes = {
+  resources:PropTypes.array
+};
 
 export default GridRecursos;

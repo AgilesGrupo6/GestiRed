@@ -12,16 +12,6 @@ import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import PeopleIcon from '@material-ui/icons/People';
 
-const styles = theme => ({
-  paper: {
-    position: 'absolute',
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-});
-
 export default class CardRecurso extends Component {
   constructor(props){
     super(props);
@@ -115,3 +105,16 @@ export default class CardRecurso extends Component {
     );
   }
 }
+
+CardRecurso.propTypes = {
+  recurso: PropTypes.shape({
+    etiquetas:PropTypes.string,
+    fechaRegistro:PropTypes.string,
+    id:PropTypes.number,
+    nombre:PropTypes.string,
+    resource_uri:PropTypes.string,
+    responsables:PropTypes.array,
+    tipoRecurso:PropTypes.string,
+    url:PropTypes.string
+  })
+};
