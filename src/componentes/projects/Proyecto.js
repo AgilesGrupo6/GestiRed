@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ResourcesGrid from '../resources/ResourcesGrid';
 import ProjectsAPI from '../api/ProjectsAPI'
 
-const urlBase = 'http://127.0.0.1:8000/';
+const urlBase = 'https://127.0.0.1:8000/';
 
 class Proyecto extends Component {
   constructor(props){

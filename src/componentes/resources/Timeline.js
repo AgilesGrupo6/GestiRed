@@ -28,7 +28,6 @@ class Timeline extends Component {
           {this.state.phases? this.state.phases.map((actual,i)=>(
             <VerticalTimelineElement
               className="vertical-timeline-element--work"
-              date="2011 - present"
               iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
               icon={<Work />}
             >

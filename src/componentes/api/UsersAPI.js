@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = "http://gestiredback.herokuapp.com";
+const baseURL = "https://gestiredback.herokuapp.com";
 
 const getAllUsers = (onComplete, onError) => {
   const url = baseURL + "/gestired/user/";

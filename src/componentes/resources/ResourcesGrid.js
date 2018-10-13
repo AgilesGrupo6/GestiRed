@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ResourceCard from './ResourceCard';
 import Grid from '@material-ui/core/Grid';
 
-const urlBase = 'http://127.0.0.1:8000/';
+const urlBase = 'https://127.0.0.1:8000/';
 
 class ResourcesGrid extends Component {
   constructor(props){

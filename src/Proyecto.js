@@ -5,7 +5,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const urlBase = 'http://127.0.0.1:8000/';
+const urlBase = 'https://127.0.0.1:8000/';
 
 class Proyecto extends Component {
   constructor(props){
