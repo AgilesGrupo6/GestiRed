@@ -30,6 +30,7 @@ class Home extends Component {
       seeResources: true,
       seeInfoResource: false,
       currentProject: project,
+      labelSearch: false,
     })
 
   };
@@ -40,6 +41,7 @@ class Home extends Component {
       currentResource: resource,
       seeProjects: false,
       seeResources: false,
+      labelSearch: false,
     })
   };
 
@@ -49,8 +51,8 @@ class Home extends Component {
       seeInfoResource: false,
       seeProjects: false,
       seeResources: false,
-      labelProjects: resources,
-      labelResources: projects,
+      labelProjects: projects,
+      labelResources: resources,
     })
   };
 
@@ -124,6 +126,7 @@ class Home extends Component {
             {this.state.seeProjects ? "Proyectos" : (this.state.seeResources ? ("Recursos del proyecto "+ this.state.currentProject.name) :
               (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.nombre): "Resultado de la búsqueda"))}
           </div>
+          {console.log("lalaal"+this.state.seeResources)}
           {this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}
                                                       currentProject={this.state.currentProject}
                                                       currentResource={this.state.currentResource}/>
@@ -135,7 +138,7 @@ class Home extends Component {
                 (this.state.seeInfoResource ? <InformationPanel content="oneResource" viewResource={this.viewResource}
                                                                 currentProject={this.state.currentProject}
                                                                 currentResource={this.state.currentResource}/>
-                    : <InformationPanel content="labels" viewResource={this.viewResource}
+                    : <InformationPanel content="labels" viewResource={this.viewResource} viewProject={this.viewProject}
                                         currentProject={this.state.currentProject}
                                         currentResource={this.state.currentResource}
                                         labelResourcesFound={this.state.labelResources}
