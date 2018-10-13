@@ -1,0 +1,19 @@
+.card {
+  width: 250px;
+  height: 350px;
+  position: relative;
+}
+
+
+.actions {
+  display: flex;
+}
+
+.resource-card__image {
+  width: 100px;
+  height: 100px;
+}
+.resource-card__title {
+  position: absolute;
+  top:0;
+}

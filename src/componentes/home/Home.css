@@ -1,0 +1,72 @@
+.home__bar {
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #2196F3;
+  font-family: 'Montserrat', sans-serif;
+  vertical-align: center;
+  color: white;
+}
+
+.home__bar-user-name {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.home__bar-title {
+  font-size: 50px;
+  margin-left: 10px;
+}
+
+.home__data-container {
+  display: flex;
+  vertical-align: center;
+  width: 180px;
+  justify-content: space-between;
+}
+
+.home__menu {
+  margin-right: 10px;
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+}
+
+.home__menu-container {
+  display: flex;
+  align-items: center;
+}
+
+.home__bar {
+  border-radius: 2px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+
+
+
+
+.home__information-card {
+  width: 65vw;
+  min-width: 300px;
+  height: 500px;
+  position: absolute;
+  top: 15vh;
+  left: 5vh;
+}
+
+.home__navigation-info {
+  width: 65vw;
+  height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+

@@ -1,0 +1,18 @@
+.home__options-card {
+  width: 25vw;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 5vh;
+  top:15vh;
+}
+.home__button {
+  color: rgb(66, 66, 66)!important;
+  margin-bottom: 15px!important;
+}
+.home__text-field {
+  width: 200px;
+}
