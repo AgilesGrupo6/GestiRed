@@ -27,13 +27,13 @@ export default class CardRecurso extends Component {
   }
 
   selectIcon(){
-    if(this.props.recurso.tipoRecurso.includes('nfo')){
+    if(this.props.recurso.resourceType.includes('nfo')){
       return '/info.png';
     }
-    else if (this.props.recurso.tipoRecurso.includes('WEB')){
+    else if (this.props.recurso.resourceType.includes('WEB')){
       return '/web.png';      
     }
-    else if (this.props.recurso.tipoRecurso.includes('ideo')){
+    else if (this.props.recurso.resourceType.includes('ideo')){
       return '/filevideo.png';      
     }
     else{
@@ -65,14 +65,14 @@ export default class CardRecurso extends Component {
       <div>
         <Card className='card'>
           <CardHeader
-            title={this.props.recurso.nombre}
-            subheader={this.props.recurso.fechaRegistro}
+            title={this.props.recurso.name}
+            subheader={this.props.recurso.registrationDate}
           />
           <CardMedia className='media'
             image={this.selectIcon()}
           />
           <CardContent>
-            <p>{this.props.recurso.tipoRecurso}</p>
+            <p>{this.props.recurso.resourceType}</p>
           </CardContent>
           <CardActions className='actions'>
             <IconButton
@@ -92,9 +92,9 @@ export default class CardRecurso extends Component {
         >
           <div style={this.getModalStyle()} className='paper'>
             <Typography variant="headline" id="modal-title">
-              {'Participantes en: ' +this.props.recurso.nombre}
+              {'Participantes en: ' +this.props.recurso.name}
             </Typography>
-            {this.props.recurso.responsables.map(r => {
+            {this.props.recurso.responsibles.map(r => {
               return (<Typography key={r} variant="subheading" id="simple-modal-description">
                 {r}
               </Typography>);
@@ -108,13 +108,13 @@ export default class CardRecurso extends Component {
 
 CardRecurso.propTypes = {
   recurso: PropTypes.shape({
-    etiquetas:PropTypes.string,
-    fechaRegistro:PropTypes.string,
+    labels:PropTypes.string,
+    registrationDate:PropTypes.string,
     id:PropTypes.number,
-    nombre:PropTypes.string,
+    name:PropTypes.string,
     resource_uri:PropTypes.string,
-    responsables:PropTypes.array,
-    tipoRecurso:PropTypes.string,
+    responsibles:PropTypes.array,
+    resourceType:PropTypes.string,
     url:PropTypes.string
   })
 };

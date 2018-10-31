@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Home.css'
+import './Home.css';
 import Card from '@material-ui/core/Card';
 import Options from "../home/Options";
 import InformationPanel from "../home/InformationPanel";
@@ -24,14 +24,14 @@ class Home extends Component {
   };
 
   viewProject = (project) => {
-    console.log("entro a ver proyecto ohhh" + project.name)
+    console.log("entro a ver proyecto ohhh" + project.name);
     this.setState({
       seeProjects: false,
       seeResources: true,
       seeInfoResource: false,
       currentProject: project,
       labelSearch: false,
-    })
+    });
 
   };
 
@@ -42,7 +42,7 @@ class Home extends Component {
       seeProjects: false,
       seeResources: false,
       labelSearch: false,
-    })
+    });
   };
 
   showLabelSearch = (resources, projects) => {
@@ -53,7 +53,7 @@ class Home extends Component {
       seeResources: false,
       labelProjects: projects,
       labelResources: resources,
-    })
+    });
   };
 
   showOption = (option) => {
@@ -65,7 +65,7 @@ class Home extends Component {
         seeResources: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
-      })
+      });
     }
     else if (option.toString() === "Mis proyectos") {
       this.setState({
@@ -74,7 +74,7 @@ class Home extends Component {
         seeResources: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
-      })
+      });
     }
     else if (option.toString() === "Todos los recursos") {
       this.setState({
@@ -83,16 +83,16 @@ class Home extends Component {
         seeProjects: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
-      })
+      });
     }
-    else if (option.toString() === "Recursos por etiquetas") {
+    else if (option.toString() === "Recursos por labels") {
       this.setState({
         resourcesByLabel: true,
         showMyProjects: false,
         seeProjects: false,
         seeResources: false,
         resourcesByTimeline: false,
-      })
+      });
     }
     else if (option.toString() === "Recursos por linea de tiempo") {
       this.setState({
@@ -102,7 +102,7 @@ class Home extends Component {
         seeResources: false,
         resourcesByLabel: false,
 
-      })
+      });
     }
 
   };
@@ -124,7 +124,7 @@ class Home extends Component {
         <Card className="home__information-card">
           <div className="home__navigation-info">
             {this.state.seeProjects ? "Proyectos" : (this.state.seeResources ? ("Recursos del proyecto "+ this.state.currentProject.name) :
-              (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.nombre): "Resultado de la búsqueda"))}
+              (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.name): "Resultado de la búsqueda"))}
           </div>
           {console.log("lalaal"+this.state.seeResources)}
           {this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}

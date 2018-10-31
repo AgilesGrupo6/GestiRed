@@ -11,7 +11,7 @@ const getAllProjects = (onComplete, onError) => {
 };
 
 const getProjectsByLabel = (label,onComplete, onError) => {
-  const url = baseURL + "/gestired/project/?etiquetas__icontains=" + label;
+  const url = baseURL + "/gestired/project/?labels__icontains=" + label;
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))

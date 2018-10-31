@@ -11,7 +11,7 @@ const getAllResources = (onComplete, onError) => {
 };
 
 const getResourceByLabel = (label, onComplete, onError) => {
-  const url = baseURL + "/gestired/resource/?etiquetas__icontains=" + label;
+  const url = baseURL + "/gestired/resource/?labels__icontains=" + label;
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))
@@ -27,7 +27,7 @@ const getResourceById = (idResource, onComplete, onError) => {
 };
 
 const getResourceStages = (idResource, onComplete, onError) => {
-  const url = baseURL + "/gestired/fase/?resources=" + idResource;
+  const url = baseURL + "/gestired/phase/?resources=" + idResource;
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))

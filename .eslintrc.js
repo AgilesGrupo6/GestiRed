@@ -4,6 +4,7 @@ module.exports = {
         "amd": true,
         "node": true
     },
+    "parser": "babel-eslint",
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"],
@@ -21,10 +22,6 @@ module.exports = {
             ],
             "linebreak-style": [
                 0
-            ],
-            "quotes": [
-                "error",
-                "single"
             ],
             "semi": [
                 "error",

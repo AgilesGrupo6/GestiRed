@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import ProjectsAPI from '../api/ProjectsAPI'
-import './Home.css'
-import "./Options.css"
+import ProjectsAPI from '../api/ProjectsAPI';
+import './Home.css';
+import "./Options.css";
 import ProjectCard from "../projects/ProjectCard";
 import Timeline from "../resources/Timeline";
 import ResourceCard from "../resources/ResourceCard";
-import "./InformationPanel.css"
+import "./InformationPanel.css";
 
 
 class InformationPanel extends Component {
@@ -18,7 +18,7 @@ class InformationPanel extends Component {
     ProjectsAPI.getAllProjects((response) => {
       this.setState({
         projects: response.data.objects
-      })
+      });
     });
   }
 
@@ -36,27 +36,27 @@ class InformationPanel extends Component {
 
         {this.props.content === "projects" && this.state.projects != null ?
           this.state.projects.map((tile, i) => (
-            <ProjectCard project={tile} viewProject={this.updateInfo}/>
+            <ProjectCard key={i} project={tile} viewProject={this.updateInfo}/>
           ))
           :
           (this.props.content === "resources" && this.state.projects != null && this.props.currentProject != null
-              ?
-              this.props.currentProject.resources.map((actual, i) => (
-                <ResourceCard resource={actual} viewResource={this.updateInfoResource}/>
-              ))
+            ?
+            this.props.currentProject.resources.map((actual, i) => (
+              <ResourceCard key={i} resource={actual} viewResource={this.updateInfoResource}/>
+            ))
+            :
+            (this.props.content === "oneResource" ?
+              <Timeline resource={this.props.currentResource} resources={this.props.currentProject.resources}/>
               :
-              (this.props.content === "oneResource" ?
-                  <Timeline resource={this.props.currentResource} resources={this.props.currentProject.resources}/>
-                  :
-                  <div className="information-panel__label-search">
-                    {this.props.labelProjectsFound.map((tile, i) => (
-                      <ProjectCard project={tile} viewProject={this.updateInfo}/>
-                    ))}
-                    {this.props.labelResourcesFound.map((actual, i) => (
-                      <ResourceCard resource={actual} viewResource={this.updateInfoResource}/>
-                    ))}
-                  </div>
-              )
+              <div className="information-panel__label-search">
+                {this.props.labelProjectsFound.map((tile, i) => (
+                  <ProjectCard key={i} project={tile} viewProject={this.updateInfo}/>
+                ))}
+                {this.props.labelResourcesFound.map((actual, i) => (
+                  <ResourceCard key={i} resource={actual} viewResource={this.updateInfoResource}/>
+                ))}
+              </div>
+            )
           )
         }
       </div>);

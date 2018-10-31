@@ -7,14 +7,14 @@ import Button from '@material-ui/core/Button';
 
 export default class ResourceCard extends Component {
   selectIcon =()=>{
-    if(this.props.resource!=null &&this.props.resource.tipoRecurso!=null) {
-      if (this.props.resource.tipoRecurso.includes('nfo')) {
+    if(this.props.resource!=null &&this.props.resource.resourceType!=null) {
+      if (this.props.resource.resourceType.includes('nfo')) {
         return '/info.png';
       }
-      else if (this.props.resource.tipoRecurso.includes('WEB')) {
+      else if (this.props.resource.resourceType.includes('WEB')) {
         return '/web.png';
       }
-      else if (this.props.resource.tipoRecurso.includes('ideo')) {
+      else if (this.props.resource.resourceType.includes('ideo')) {
         return '/filevideo.png';
       }
       else {
@@ -30,13 +30,13 @@ export default class ResourceCard extends Component {
       <div>
         <Card className='card'>
           <CardHeader
-            title={this.props.resource.nombre || this.props.resource.name}
-            subheader={this.props.resource.fechaRegistro}
+            title={this.props.resource.name || this.props.resource.name}
+            subheader={this.props.resource.registrationDate}
             className="resource-card__title"
           />
           <img src={this.selectIcon()} className="resource-card__image"
           />
-            <p>{this.props.resource.tipoRecurso}</p>
+          <p>{this.props.resource.resourceType}</p>
 
           <CardActions className='actions'>
             <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver recurso</Button>
