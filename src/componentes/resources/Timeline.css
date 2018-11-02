@@ -11,3 +11,6 @@
 .timeline__dialog, .MuiBackdrop-root-171 {
   background-color: rgba(0, 0, 0, 0.1) !important;
 }
+.timeline__add-responsible, .timeline__menu {
+  width: 200px;
+}

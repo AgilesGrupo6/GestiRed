@@ -10,9 +10,19 @@ const getAllUsers = (onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
+const saveQualityResponsible = (data, onComplete, onError) => {
+  const url = baseURL + "/gestired/qualityControl/";
+
+  axios.post(url, {
+    ...data
+  })
+    .then(onComplete? onComplete : (response) => console.log(response))
+    .catch(onError? onError : (error) => console.log(error));
+};
 
 const UsersAPI = {
   getAllUsers,
+  saveQualityResponsible
 };
 
 export default UsersAPI;
