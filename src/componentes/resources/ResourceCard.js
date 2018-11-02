@@ -37,7 +37,6 @@ export default class ResourceCard extends Component {
           <img src={this.selectIcon()} className="resource-card__image"
           />
           <p>{this.props.resource.resourceType}</p>
-
           <CardActions className='actions'>
             <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver recurso</Button>
           </CardActions>

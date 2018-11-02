@@ -1,5 +1,13 @@
-.timeline{
+.timeline {
   width: 100%;
   position: absolute;
-  top:0;
+  top: 0;
+}
+
+.timeline__responsible, .timeline__end-phase {
+  margin: 2px !important;
+}
+
+.timeline__dialog, .MuiBackdrop-root-171 {
+  background-color: rgba(0, 0, 0, 0.1) !important;
 }
