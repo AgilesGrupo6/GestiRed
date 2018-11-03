@@ -38,7 +38,7 @@ export default class ResourceCard extends Component {
           />
           <p>{this.props.resource.resourceType}</p>
           <CardActions className='actions'>
-            <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver recurso</Button>
+            <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver artefacto</Button>
           </CardActions>
         </Card>
       </div>

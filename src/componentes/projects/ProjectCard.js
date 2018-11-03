@@ -51,7 +51,7 @@ export default class ProjectCard extends Component {
             <p>{this.props.project.labels}</p>
           </CardContent>
           <CardActions className='actions'>
-            <Button  variant="outlined" onClick={() => this.props.viewProject(this.state.id)}>Ver proyecto</Button>
+            <Button  variant="outlined" onClick={() => this.props.viewProject(this.state.id)}>Ver recurso</Button>
           </CardActions>
         </Card>
       </div>

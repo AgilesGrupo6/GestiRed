@@ -27,7 +27,7 @@ class Home extends Component {
     labelSearch: false,
     qualityControlObjects: [],
     drawerRight: false,
-    options: ["Todos los proyectos", "Recursos para control de calidad"]
+    options: ["Todos los recursos", "Recursos para control de calidad"]
   };
 
   viewProject = (project) => {
@@ -163,8 +163,8 @@ class Home extends Component {
         <Options showOption={this.showOption} options={this.state.options} showLabelSearch={this.showLabelSearch}/>
         <Card className="home__information-card">
           <div className="home__navigation-info">
-            {this.state.seeProjects ? "Proyectos" : (this.state.seeResources ? ("Recursos del proyecto "+ this.state.currentProject.name) :
-              (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.name): "Resultado de la búsqueda"))}
+            {this.state.seeProjects ? "Recursos" : (this.state.seeResources ? ("Artefactos del recurso "+ this.state.currentProject.name) :
+              (this.state.seeInfoResource ? ("Artefacto de "+ this.state.currentResource.name): "Resultado de la búsqueda"))}
           </div>
           {console.log("lalaal"+this.state.seeResources)}
           {
