@@ -14,3 +14,7 @@
 .timeline__add-responsible, .timeline__menu {
   width: 200px;
 }
+
+.timeline__comments-multiline {
+  width: 100%!important;
+}

@@ -46,7 +46,7 @@ class InformationPanel extends Component {
             ))
             :
             (this.props.content === "oneResource" ?
-              <Timeline resource={this.props.currentResource} resources={this.props.currentProject.resources}/>
+              <Timeline fakeCurrentUser ={this.props.fakeCurrentUser} resource={this.props.currentResource} resources={this.props.currentProject.resources}/>
               :
               <div className="information-panel__label-search">
                 {this.props.labelProjectsFound.map((tile, i) => (

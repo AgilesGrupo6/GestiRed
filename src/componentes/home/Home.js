@@ -3,10 +3,13 @@ import './Home.css';
 import Card from '@material-ui/core/Card';
 import Options from "../home/Options";
 import InformationPanel from "../home/InformationPanel";
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
 
 class Home extends Component {
 
   state = {
+    fakeCurrentUser: "Lady Pinzón",
     projects: null,
     seeProjects: true,
     seeResources: false,
@@ -20,6 +23,7 @@ class Home extends Component {
     labelProjects: [],
     labelResources: [],
     labelSearch: false,
+    drawerRight: false,
     options: ["Todos los proyectos"]
   };
 
@@ -106,7 +110,17 @@ class Home extends Component {
     }
 
   };
+  changeProfile= () => {
+    this.setState({
+      fakeCurrentUser: this.state.fakeCurrentUser==='Lady Pinzón'? 'Orlando Sabogal': 'Lady Pinzón'
+    });
+  };
 
+  toggleDrawer = (side, open) => {
+    this.setState({
+      [side]: open
+    });
+  };
 
   render() {
     return (
@@ -114,9 +128,9 @@ class Home extends Component {
         <div className="home__bar">
           <div className="home__bar-title">Gestired</div>
           <div className="home__data-container">
-            <div className="home__bar-user-name">Orlando S.</div>
+            <div className="home__bar-user-name">{this.state.fakeCurrentUser}</div>
             <div className="home__menu-container">
-              <img src="/images/menu-logo.png" className="home__menu"/>
+              <img src="/images/menu-logo.png" className="home__menu" onClick={()=>this.toggleDrawer('drawerRight', true)}/>
             </div>
           </div>
         </div>
@@ -129,24 +143,41 @@ class Home extends Component {
           {console.log("lalaal"+this.state.seeResources)}
           {this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}
                                                       currentProject={this.state.currentProject}
-                                                      currentResource={this.state.currentResource}/>
+                                                      currentResource={this.state.currentResource}
+                                                      fakeCurrentUser ={this.state.fakeCurrentUser}/>
             : (
               this.state.seeResources ? <InformationPanel content="resources" viewResource={this.viewResource}
                                                           currentProject={this.state.currentProject}
-                                                          currentResource={this.state.currentResource}/>
+                                                          currentResource={this.state.currentResource}
+                                                          fakeCurrentUser ={this.state.fakeCurrentUser}/>
                 :
                 (this.state.seeInfoResource ? <InformationPanel content="oneResource" viewResource={this.viewResource}
                                                                 currentProject={this.state.currentProject}
-                                                                currentResource={this.state.currentResource}/>
+                                                                currentResource={this.state.currentResource}
+                                                                fakeCurrentUser ={this.state.fakeCurrentUser}/>
                     : <InformationPanel content="labels" viewResource={this.viewResource} viewProject={this.viewProject}
                                         currentProject={this.state.currentProject}
                                         currentResource={this.state.currentResource}
                                         labelResourcesFound={this.state.labelResources}
-                                        labelProjectsFound={this.state.labelProjects}/>
+                                        labelProjectsFound={this.state.labelProjects}
+                                        fakeCurrentUser ={this.state.fakeCurrentUser}/>
 
                 )
             )}
         </Card>
+        <Drawer anchor="right" open={this.state.drawerRight} onClose={()=>this.toggleDrawer('drawerRight', false)}>
+        <div
+          tabIndex={0}
+          role="button"
+          onClick={()=>this.toggleDrawer('drawerRight', false)}
+          onKeyDown={()=>this.toggleDrawer('drawerRight', false)}
+          className="home__change-profile"
+        >
+          <Button variant="outlined" className="home_button-change-profile" onClick={this.changeProfile}>
+            Cambiar Perfil
+          </Button>
+        </div>
+      </Drawer>
       </div>);
 
   }
