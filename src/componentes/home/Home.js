@@ -5,6 +5,7 @@ import Options from "../home/Options";
 import InformationPanel from "../home/InformationPanel";
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
+import QualityControlAPI from "../api/QualityControlAPI";
 
 class Home extends Component {
 
@@ -17,14 +18,16 @@ class Home extends Component {
     showMyProjects: false,
     resourcesByLabel: false,
     resourcesByTimeline: false,
+    resourcesByQualityControl: false,
     actualOption: "",
     currentProject: null,
     currentResource: null,
     labelProjects: [],
     labelResources: [],
     labelSearch: false,
+    qualityControlObjects: [],
     drawerRight: false,
-    options: ["Todos los proyectos"]
+    options: ["Todos los proyectos", "Recursos para control de calidad"]
   };
 
   viewProject = (project) => {
@@ -69,6 +72,7 @@ class Home extends Component {
         seeResources: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
+        resourcesByQualityControl: false,
       });
     }
     else if (option.toString() === "Mis proyectos") {
@@ -78,6 +82,7 @@ class Home extends Component {
         seeResources: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
+        resourcesByQualityControl: false,
       });
     }
     else if (option.toString() === "Todos los recursos") {
@@ -87,6 +92,7 @@ class Home extends Component {
         seeProjects: false,
         resourcesByLabel: false,
         resourcesByTimeline: false,
+        resourcesByQualityControl: false,
       });
     }
     else if (option.toString() === "Recursos por labels") {
@@ -96,6 +102,7 @@ class Home extends Component {
         seeProjects: false,
         seeResources: false,
         resourcesByTimeline: false,
+        resourcesByQualityControl: false,
       });
     }
     else if (option.toString() === "Recursos por linea de tiempo") {
@@ -105,7 +112,26 @@ class Home extends Component {
         seeProjects: false,
         seeResources: false,
         resourcesByLabel: false,
+        resourcesByQualityControl: false,
 
+      });
+    }
+    else if (option.toString() === "Recursos para control de calidad") {
+      console.log("entre a recursos control de calida");
+      this.setState({
+        resourcesByQualityControl: true,
+        resourcesByTimeline: false,
+        showMyProjects: false,
+        seeProjects: false,
+        seeResources: false,
+        resourcesByLabel: false,
+      }, ()=>{
+        QualityControlAPI.getQualityControlByPerson(2,(response)=>{
+          console.log("recibi respuesta" + response.data.objects);
+          this.setState({
+            qualityControlObjects: response.data.objects
+          })
+        })
       });
     }
 
@@ -141,7 +167,14 @@ class Home extends Component {
               (this.state.seeInfoResource ? ("Recurso de "+ this.state.currentResource.name): "Resultado de la búsqueda"))}
           </div>
           {console.log("lalaal"+this.state.seeResources)}
-          {this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}
+          {
+            // this.state.resourcesByQualityControl ? <InformationPanel content="resourcesByQualityControl" viewProject={this.viewProject}
+            //                                                          currentProject={this.state.currentProject}
+            //                                                          currentResource={this.state.currentResource}
+            //                                                          resourcesByQualityControl = {this.state.qualityControlObjects}
+            //                                                          fakeCurrentUser ={this.state.fakeCurrentUser}/>
+            //   :
+            (this.state.seeProjects ? <InformationPanel content="projects" viewProject={this.viewProject}
                                                       currentProject={this.state.currentProject}
                                                       currentResource={this.state.currentResource}
                                                       fakeCurrentUser ={this.state.fakeCurrentUser}/>
@@ -155,7 +188,9 @@ class Home extends Component {
                                                                 currentProject={this.state.currentProject}
                                                                 currentResource={this.state.currentResource}
                                                                 fakeCurrentUser ={this.state.fakeCurrentUser}/>
-                    : <InformationPanel content="labels" viewResource={this.viewResource} viewProject={this.viewProject}
+                    :
+
+                    <InformationPanel content="labels" viewResource={this.viewResource} viewProject={this.viewProject}
                                         currentProject={this.state.currentProject}
                                         currentResource={this.state.currentResource}
                                         labelResourcesFound={this.state.labelResources}
@@ -163,7 +198,7 @@ class Home extends Component {
                                         fakeCurrentUser ={this.state.fakeCurrentUser}/>
 
                 )
-            )}
+            ))}
         </Card>
         <Drawer anchor="right" open={this.state.drawerRight} onClose={()=>this.toggleDrawer('drawerRight', false)}>
         <div

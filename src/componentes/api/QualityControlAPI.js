@@ -38,13 +38,20 @@ const postComments = (data, onComplete, onError) => {
     .catch(onError? onError : (error) => console.log(error));
 };
 
+const getQualityControlByPerson = (idResponsible,onComplete, onError) => {
+  const url = baseURL + "/gestired/qualityControl/?responsible="+idResponsible;
 
+  axios.get(url)
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
+};
 
 const QualityControlAPI = {
   getQualityControl,
   sendNotification,
   getComments,
-  postComments
+  postComments,
+  getQualityControlByPerson
 };
 
 export default QualityControlAPI;

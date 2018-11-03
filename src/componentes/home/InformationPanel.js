@@ -33,8 +33,8 @@ class InformationPanel extends Component {
   render() {
     return (
       <div className="information-panel">
-
-        {this.props.content === "projects" && this.state.projects != null ?
+        {
+          (this.props.content === "projects" && this.state.projects != null ?
           this.state.projects.map((tile, i) => (
             <ProjectCard key={i} project={tile} viewProject={this.updateInfo}/>
           ))
@@ -57,7 +57,7 @@ class InformationPanel extends Component {
                 ))}
               </div>
             )
-          )
+          ))
         }
       </div>);
   }

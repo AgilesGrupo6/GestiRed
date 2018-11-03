@@ -4,6 +4,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import {Work} from '@material-ui/icons';
 import ResourcesAPI from "../api/ResourcesAPI";
 import UserAPI from "../api/UsersAPI";
+import PhasesAPI from "../api/PhasesAPI";
 import QualityControlAPI from "../api/QualityControlAPI";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -30,6 +31,7 @@ class Timeline extends Component {
     responsible: "",
     responsibleByResource: [],
     qualityControl: [],
+    idPhase: 0,
     qualityObjectComments: [],
     qualityComments: [],
     disableButton: false,
@@ -98,8 +100,8 @@ class Timeline extends Component {
   };
 
 
-  openEndPhaseDialog = () => {
-    this.setState({endPhaseDialog: true})
+  openEndPhaseDialog = (idPhase) => {
+    this.setState({endPhaseDialog: true, idPhase})
   };
 
   handleCloseReviewDialog = () => {
@@ -172,10 +174,26 @@ class Timeline extends Component {
         responsible_name: this.state.responsibleByResource[0]
       }
     );
+
     this.handleCloseReviewDialog();
     this.setState({
       disableButton: true,
     })
+  };
+
+  endPhase = () => {
+    PhasesAPI.createNewPhase({
+      phaseType: "/gestired/phaseType/"+(this.state.idPhase+1)+"/",
+      resources: "/gestired/resource/"+this.state.currentResource.id+"/"
+    }, ()=>{
+      ResourcesAPI.getResourceStages(this.state.currentResource.id, (response) => {
+        this.setState({
+          phases: response.data.objects
+
+        });
+      });
+    });
+    this.handleCloseEndPhaseDialog();
   };
 
   render() {
@@ -190,12 +208,12 @@ class Timeline extends Component {
               iconStyle={{background: 'rgb(33, 150, 243)', color: '#fff'}}
               icon={<Work/>}
             >
-              <h2 className="vertical-timeline-element-title">{this.state.currentResource.name}</h2>
+              <h2 className="vertical-timeline-element-title">{this.state.currentResource.name?this.state.currentResource.name:"Control de calidad"}</h2>
               <h3 className="vertical-timeline-element-title">{actual.phaseType.name}</h3>
               <p>
                 Fecha inicial: {actual.initDate}<br/>
                 Fecha final: {actual.endDate}<br/>
-                Estado: completado
+                Estado: En proceso
               </p>
               <Button variant="outlined" color="primary" className="timeline__responsible"
                       onClick={this.openResponsibleDialog}>
@@ -233,13 +251,13 @@ class Timeline extends Component {
                   {this.props.fakeCurrentUser === "Lady Pinzón" ?
                     <Tooltip title="No puedes cambiar de fase porque solamente es el encargado de control de calidad">
                       <span>
-                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase">
+                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
                             Terminar fase
                         </Button>
                         </span>
                     </Tooltip>
                     :
-                    <Button variant="outlined" color="secondary" className="timeline__end-phase">
+                    <Button variant="outlined" color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
                       Terminar fase
                     </Button>
                   }
@@ -248,13 +266,13 @@ class Timeline extends Component {
                 this.props.fakeCurrentUser === "Lady Pinzón" ?
                   <Tooltip title="No puedes cambiar de fase porque solamente es el encargado de control de calidad">
                       <span>
-                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase">
+                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
                             Terminar fase
                         </Button>
                         </span>
                   </Tooltip>
                   :
-                  <Button variant="outlined" color="secondary" className="timeline__end-phase">
+                  <Button variant="outlined" color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
                     Terminar fase
                   </Button>
               }
@@ -378,6 +396,28 @@ class Timeline extends Component {
                     Continuar
                   </Button>
                   }
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={this.state.endPhaseDialog}
+                onClose={this.handleCloseEndPhaseDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="timeline__dialog"
+              >
+                <DialogTitle id="alert-dialog-title">{"Terminar fase"}</DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Se dará por terminada esta fase del recurso y se iniciará la siguiente.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleCloseEndPhaseDialog} color="primary">
+                    Cancelar
+                  </Button>
+                  <Button onClick={this.endPhase} color="primary" autoFocus>
+                    Continuar
+                  </Button>
                 </DialogActions>
               </Dialog>
             </VerticalTimelineElement>
