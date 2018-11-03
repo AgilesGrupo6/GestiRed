@@ -5,6 +5,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/33473bbc3eb74041a538449aa60e4615)](https://app.codacy.com/app/AgilesGrupo6/GestiRed?utm_source=github.com&utm_medium=referral&utm_content=ljpinzon12/GestiRed&utm_campaign=Badge_Grade_Settings)
+
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
