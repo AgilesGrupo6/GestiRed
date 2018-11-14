@@ -98,9 +98,18 @@ class Home extends Component {
   };
 
   changeProfile = () => {
-    this.setState({
-      fakeCurrentUser: this.state.fakeCurrentUser === 'Lady Pinzón' ? 'Orlando Sabogal' : 'Lady Pinzón'
-    });
+    this.state.resourcesByQualityControl ?
+      this.setState({
+        fakeCurrentUser: this.state.fakeCurrentUser === 'Lady Pinzón' ? 'Orlando Sabogal' : 'Lady Pinzón',
+        resourcesByQualityControl: false,
+        seeProjects: true
+      })
+      :
+      this.setState({
+        fakeCurrentUser: this.state.fakeCurrentUser === 'Lady Pinzón' ? 'Orlando Sabogal' : 'Lady Pinzón',
+      })
+
+
   };
 
   toggleDrawer = (side, open) => {
