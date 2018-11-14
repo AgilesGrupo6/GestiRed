@@ -7,7 +7,7 @@ import ResourcesAPI from '../api/ResourcesAPI';
 import "./Options.css";
 
 
-class Home extends Component {
+class Options extends Component {
 
   state = {
     resourcesFound: [],
@@ -33,10 +33,17 @@ class Home extends Component {
     return (
       <Card className="home__options-card">
         {this.props.options.map((actual, i) => (
-          <Button key={i} variant="outlined" className="home__button"
-                  onClick={() => this.props.showOption(actual)}>
-            {actual}
-          </Button>))}
+          this.props.fakeCurrentUser === "Lady Pinzón" && actual.toString() === "Recursos para control de calidad" ?
+            <Button key={i} variant="outlined" className="home__button"
+                    onClick={() => this.props.showOption(actual)}>
+              {actual}
+            </Button>:
+            (actual.toString() === "Todos los recursos" &&
+              <Button key={i} variant="outlined" className="home__button"
+                      onClick={() => this.props.showOption(actual)}>
+                {actual}
+              </Button>)
+          ))}
         <TextField
           id="standard-with-placeholder"
           label="Buscar por etiqueta"
@@ -49,4 +56,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Options;

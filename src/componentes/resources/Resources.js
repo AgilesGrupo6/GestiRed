@@ -7,12 +7,14 @@ class Resources extends Component {
   render() {
     return (
       <div className="resources">
-        <div className="resources__title">{this.props.project.name + " > " + "Artefactos"}</div>
+        <div className="resources__title">{this.props.resourcesByQualityControl ? "Recursos para control de calidad"
+          : (this.props.project ? this.props.project.name + " > " + "Artefactos" : "")}</div>
         <div>
           <div className="resources__container">
             {
-              this.props.project.resources && this.props.project.resources.map((tile, i) => (
-                <ResourceCard viewInfoResource={this.props.viewInfoResource} key={i} resource={tile}/>
+              this.props.resources && this.props.resources.map((tile, i) => (
+                <ResourceCard viewInfoResource={this.props.viewInfoResource} key={i}
+                              resource={this.props.resourcesByQualityControl ? tile.resource : tile}/>
               ))
             }
           </div>
