@@ -25,7 +25,7 @@ class Home extends Component {
     labelProjects: [],
     labelResources: [],
     labelSearch: false,
-    qualityControlObjects: [],
+    qualityControlResources: [],
     drawerRight: false,
     options: ["Todos los recursos", "Recursos para control de calidad"]
   };
@@ -59,20 +59,22 @@ class Home extends Component {
       this.setState({
         seeProjects: true,
         seeResources: false,
+        seeInfoResource: false,
         resourcesByQualityControl: false,
       });
     }
     else if (option.toString() === "Recursos para control de calidad") {
-      console.log("entre a recursos control de calida");
+      console.log("entre a recursos control de calidad");
       this.setState({
+        seeResources: true,
         resourcesByQualityControl: true,
         seeProjects: false,
-        seeResources: false,
+        seeInfoResource: false
       }, () => {
         QualityControlAPI.getQualityControlByPerson(2, (response) => {
           console.log("recibi respuesta" + response.data.objects);
           this.setState({
-            qualityControlObjects: response.data.objects
+            qualityControlResources: response.data.objects,
           })
         })
       });
@@ -120,16 +122,22 @@ class Home extends Component {
             </div>
           </div>
         </div>
-        <Options showOption={this.showOption} options={this.state.options} showLabelSearch={this.showLabelSearch}/>
+        <Options showOption={this.showOption} options={this.state.options} showLabelSearch={this.showLabelSearch}
+                 fakeCurrentUser={this.state.fakeCurrentUser}/>
         <Card className="home__information-card">
           {
             this.state.seeProjects ?
               <Projects viewResource={this.viewResource}/> :
               (this.state.seeResources ?
-                <Resources viewInfoResource={this.viewInfoResource} project={this.state.currentProject}/> :
+                <Resources viewInfoResource={this.viewInfoResource} project={this.state.currentProject}
+                           resources={this.state.resourcesByQualityControl ? this.state.qualityControlResources : this.state.currentProject.resources}
+                           resourcesByQualityControl={this.state.resourcesByQualityControl}
+                /> :
                 (this.state.seeInfoResource ?
-                  <Timeline resources={this.state.currentProject.resources} resource={this.state.currentResource}
-                            fakeCurrentUser={this.state.fakeCurrentUser}/> :
+                  <Timeline
+                    resources={this.state.resourcesByQualityControl ? this.state.qualityControlResources : this.state.currentProject.resources}
+                    resource={this.state.currentResource}
+                    fakeCurrentUser={this.state.fakeCurrentUser}/> :
                   (this.state.seeSearches ?
                     <Searches resources={this.state.labelResources} projects={this.state.labelProjects}
                               viewResource={this.viewResource} viewInfoResource={this.viewInfoResource}/> : "")))
