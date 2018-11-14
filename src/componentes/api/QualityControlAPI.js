@@ -16,12 +16,12 @@ const sendNotification = (data, onComplete, onError) => {
   axios.post(url, {
     ...data
   })
-    .then(onComplete? onComplete : (response) => console.log(response))
-    .catch(onError? onError : (error) => console.log(error));
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
 };
 
-const getComments = (idResource,onComplete, onError) => {
-  const url = baseURL + "/gestired/comments/?resource="+idResource;
+const getComments = (idResource, onComplete, onError) => {
+  const url = baseURL + "/gestired/comments/?resource=" + idResource;
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))
@@ -34,12 +34,12 @@ const postComments = (data, onComplete, onError) => {
   axios.post(url, {
     ...data
   })
-    .then(onComplete? onComplete : (response) => console.log(response))
-    .catch(onError? onError : (error) => console.log(error));
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
 };
 
-const getQualityControlByPerson = (idResponsible,onComplete, onError) => {
-  const url = baseURL + "/gestired/qualityControl/?responsible="+idResponsible;
+const getQualityControlByPerson = (idResponsible, onComplete, onError) => {
+  const url = baseURL + "/gestired/qualityControl/?responsible=" + idResponsible;
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))

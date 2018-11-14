@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import './Home.css';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import "./Options.css";
 import TextField from '@material-ui/core/TextField';
 import ProjectsAPI from '../api/ProjectsAPI';
 import ResourcesAPI from '../api/ResourcesAPI';
+import "./Options.css";
 
 
 class Home extends Component {
@@ -35,7 +34,7 @@ class Home extends Component {
       <Card className="home__options-card">
         {this.props.options.map((actual, i) => (
           <Button key={i} variant="outlined" className="home__button"
-            onClick={() =>this.props.showOption(actual)}>
+                  onClick={() => this.props.showOption(actual)}>
             {actual}
           </Button>))}
         <TextField
@@ -44,7 +43,7 @@ class Home extends Component {
           placeholder="agil..."
           className="home__text-field"
           margin="normal"
-          onChange={(event)=>this.searchLabel(event.target.value)}
+          onChange={(event) => this.searchLabel(event.target.value)}
         />
       </Card>);
   }

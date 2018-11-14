@@ -1,6 +1,6 @@
-.card {
+.project-card {
   width: 250px;
-  height: 300px;
+  height: 190px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,23 @@
   position: absolute;
   bottom: 0;
 }
+
 .project-card__title {
   position: absolute;
   top: 0;
+}
+
+.project-card__button {
+  background-color: #2196F3 !important;
+  color: white !important;
+  margin: 5px !important;
+}
+
+.project-card__labels {
+  margin: 5px;
+}
+
+.project-card__labels-container {
+  position: absolute;
+  top: 95px;
 }

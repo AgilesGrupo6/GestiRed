@@ -1,0 +1,19 @@
+.projects {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 500px;
+}
+
+.projects__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.projects__title {
+  font-size: 20px;
+  margin: 5px;
+}

@@ -1,0 +1,21 @@
+.searches {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 500px;
+}
+
+.searches__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 65vw;
+}
+
+.searches__title {
+  font-size: 20px;
+  margin: 5px;
+}

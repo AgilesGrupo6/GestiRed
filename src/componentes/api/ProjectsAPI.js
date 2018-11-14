@@ -10,7 +10,7 @@ const getAllProjects = (onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
-const getProjectsByLabel = (label,onComplete, onError) => {
+const getProjectsByLabel = (label, onComplete, onError) => {
   const url = baseURL + "/gestired/project/?labels__icontains=" + label;
 
   axios.get(url)
@@ -18,8 +18,8 @@ const getProjectsByLabel = (label,onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
-const getProjectsById = (idProject,onComplete, onError) => {
-  const url = baseURL + "/gestired/project/" + idProject +"/";
+const getProjectsById = (idProject, onComplete, onError) => {
+  const url = baseURL + "/gestired/project/" + idProject + "/";
 
   axios.get(url)
     .then(onComplete ? onComplete : (response) => console.log(response))

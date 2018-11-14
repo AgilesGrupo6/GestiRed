@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './ResourceCard.css';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -6,8 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
 export default class ResourceCard extends Component {
-  selectIcon =()=>{
-    if(this.props.resource!=null &&this.props.resource.resourceType!=null) {
+  selectIcon = () => {
+    if (this.props.resource != null && this.props.resource.resourceType != null) {
       if (this.props.resource.resourceType.includes('nfo')) {
         return '/info.png';
       }
@@ -34,11 +34,13 @@ export default class ResourceCard extends Component {
             subheader={this.props.resource.registrationDate}
             className="resource-card__title"
           />
-          <img src={this.selectIcon()} className="resource-card__image"
-          />
-          <p>{this.props.resource.resourceType}</p>
+          <div>
+            <img src={this.selectIcon()} className="resource-card__image"/>
+          </div>
+          <p className="resource-card__type">{this.props.resource.resourceType}</p>
           <CardActions className='actions'>
-            <Button  variant="outlined" onClick={(resource)=>this.props.viewResource(this.props.resource)} >Ver artefacto</Button>
+            <Button className="resource-card__button" variant="outlined"
+                    onClick={() => this.props.viewInfoResource(this.props.resource)}>Ver artefacto</Button>
           </CardActions>
         </Card>
       </div>

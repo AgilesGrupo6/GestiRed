@@ -8,11 +8,9 @@ const createNewPhase = (data, onComplete, onError) => {
   axios.post(url, {
     ...data
   })
-    .then(onComplete? onComplete : (response) => console.log(response))
-    .catch(onError? onError : (error) => console.log(error));
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
 };
-
-
 
 const PhasesAPI = {
   createNewPhase,

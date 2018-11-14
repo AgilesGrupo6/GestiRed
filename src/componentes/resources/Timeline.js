@@ -183,9 +183,9 @@ class Timeline extends Component {
 
   endPhase = () => {
     PhasesAPI.createNewPhase({
-      phaseType: "/gestired/phaseType/"+(this.state.idPhase+1)+"/",
-      resources: "/gestired/resource/"+this.state.currentResource.id+"/"
-    }, ()=>{
+      phaseType: "/gestired/phaseType/" + (this.state.idPhase + 1) + "/",
+      resources: "/gestired/resource/" + this.state.currentResource.id + "/"
+    }, () => {
       ResourcesAPI.getResourceStages(this.state.currentResource.id, (response) => {
         this.setState({
           phases: response.data.objects
@@ -198,7 +198,7 @@ class Timeline extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor: '#cccccc'}} className="timeline">
+      <div className="timeline">
         <h1>Timeline</h1>
         <VerticalTimeline>
           {this.state.phases ? this.state.phases.map((actual) => (
@@ -208,7 +208,8 @@ class Timeline extends Component {
               iconStyle={{background: 'rgb(33, 150, 243)', color: '#fff'}}
               icon={<Work/>}
             >
-              <h2 className="vertical-timeline-element-title">{this.state.currentResource.name?this.state.currentResource.name:"Control de calidad"}</h2>
+              <h2
+                className="vertical-timeline-element-title">{this.state.currentResource.name ? this.state.currentResource.name : "Control de calidad"}</h2>
               <h3 className="vertical-timeline-element-title">{actual.phaseType.name}</h3>
               <p>
                 Fecha inicial: {actual.initDate}<br/>
@@ -251,13 +252,15 @@ class Timeline extends Component {
                   {this.props.fakeCurrentUser === "Lady Pinzón" ?
                     <Tooltip title="No puedes cambiar de fase porque solamente es el encargado de control de calidad">
                       <span>
-                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
+                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase"
+                                onClick={() => this.openEndPhaseDialog(actual.phaseType.id)}>
                             Terminar fase
                         </Button>
                         </span>
                     </Tooltip>
                     :
-                    <Button variant="outlined" color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
+                    <Button variant="outlined" color="secondary" className="timeline__end-phase"
+                            onClick={() => this.openEndPhaseDialog(actual.phaseType.id)}>
                       Terminar fase
                     </Button>
                   }
@@ -266,13 +269,15 @@ class Timeline extends Component {
                 this.props.fakeCurrentUser === "Lady Pinzón" ?
                   <Tooltip title="No puedes cambiar de fase porque solamente es el encargado de control de calidad">
                       <span>
-                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
+                        <Button variant="outlined" disabled color="secondary" className="timeline__end-phase"
+                                onClick={() => this.openEndPhaseDialog(actual.phaseType.id)}>
                             Terminar fase
                         </Button>
                         </span>
                   </Tooltip>
                   :
-                  <Button variant="outlined" color="secondary" className="timeline__end-phase" onClick={()=>this.openEndPhaseDialog(actual.phaseType.id)}>
+                  <Button variant="outlined" color="secondary" className="timeline__end-phase"
+                          onClick={() => this.openEndPhaseDialog(actual.phaseType.id)}>
                     Terminar fase
                   </Button>
               }

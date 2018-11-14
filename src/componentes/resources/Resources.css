@@ -1,0 +1,21 @@
+.resources {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 500px;
+}
+
+.resources__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 65vw;
+}
+
+.resources__title {
+  font-size: 20px;
+  margin: 5px;
+}
