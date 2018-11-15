@@ -1,3 +1,8 @@
+## CodeShip
+
+[ ![Codeship Status for AgilesGrupo6/GestiRed](https://app.codeship.com/projects/10c5dfa0-cb11-0136-6bcb-06f8495288d5/status?branch=develop)](https://app.codeship.com/projects/315297)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
