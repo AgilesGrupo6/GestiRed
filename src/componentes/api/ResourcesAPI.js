@@ -34,6 +34,14 @@ const getResourceStages = (idResource, onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
+/* const getResourceByFilter = (phases, onComplete, onError) => {
+  const url = baseURL + "/gestired/resource/" + idResource;
+
+  axios.get(url)
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
+}; */
+
 const ResourcesAPI = {
   getAllResources,
   getResourceByLabel,
