@@ -54,8 +54,8 @@ class Options extends Component {
         resourcesFound: response.data.objects
       },() => {
         this.props.showLabelSearch(this.state.resourcesFound, this.state.projectsFound);
+        console.log(response.data.objects);
       });
-      console.log(response.data.objects);
     });
     /* await ResourcesAPI.getProjectsByFilter(value, (response) => {
       this.setState({
@@ -81,16 +81,14 @@ class Options extends Component {
     this.setState({
       phases: prev
     }, () => {
-      const {phasesFilter,resourcesFilter,usersFilter} = this.state;
       let filters=[];
       this.state.phases.forEach((element) => {
-        //console.log('Hola',element);
         if(element.checked){filters.push(element.id);}
       });
       this.setState({phasesFilter:filters},() => {
+        const {phasesFilter,resourcesFilter,usersFilter} = this.state;
         if (filters.length>0) {this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());}
       });
-      //console.log(filters);
     });
   }
 
@@ -118,7 +116,6 @@ class Options extends Component {
   };
 
   renderFilters = () => {
-    console.log('Mostar filtros');
     return (<FormControl component="fieldset" className={'formControl'}>
       <FormLabel component="legend">Fases</FormLabel>
       <FormGroup>
@@ -150,7 +147,6 @@ class Options extends Component {
   };
 
   renderSelect = () => {
-    //this.getUsers();
     const userOpt = () => {
       let opts=[];
       this.state.usersOptions.map( elem => {
@@ -179,6 +175,7 @@ class Options extends Component {
           options={options}
           className="home__options_select"
           classNamePrefix="select"
+          placeholder='Tipo de recurso'
           onChange={e => this.handleResourceTypes(e)}
         />
         <h3>Usuario</h3>
@@ -189,6 +186,7 @@ class Options extends Component {
           options={userOpt()}
           className="home__options_select"
           classNamePrefix="select"
+          placeholder='Usuario'
           onChange={e => this.handleUsersSelect(e)}
         />
       </div>
