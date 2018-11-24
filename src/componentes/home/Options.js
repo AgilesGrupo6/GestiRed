@@ -207,7 +207,6 @@ class Options extends Component {
                 }}>
                 {actual}
               </Button>
-              {this.renderFilters()}
             </div>
             :
             (actual.toString() === "Todos los recursos" &&
@@ -219,6 +218,7 @@ class Options extends Component {
               {actual}
             </Button>)
         ))}
+        {this.renderFilters()}
         {this.renderSelect()}
         <TextField
           id="standard-with-placeholder"
