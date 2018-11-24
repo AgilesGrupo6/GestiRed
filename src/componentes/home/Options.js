@@ -10,23 +10,29 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Select from 'react-select';
 import ProjectsAPI from '../api/ProjectsAPI';
 import ResourcesAPI from '../api/ResourcesAPI';
+import UsersAPI from '../api/UsersAPI';
 import "./Options.css";
 
 
 class Options extends Component {
-
-  state = {
-    resourcesFound: [],
-    projectsFound: [],
-    phases:[{id:1 , name:'PreProducción', checked:false},
-      {id:2 , name:'Producción', checked:false},
-      {id:3 , name:'PostProducción', checked:false},
-      {id:4 , name:'Control de calidad', checked:false},
-      {id:5 , name:'Sistematización y resguardo', checked:false}
-    ],
-    phasesFilter:[],
-    resourcesTypes:[]
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      resourcesFound: [],
+      projectsFound: [],
+      phases:[{id:1 , name:'PreProducción', checked:false},
+        {id:2 , name:'Producción', checked:false},
+        {id:3 , name:'PostProducción', checked:false},
+        {id:4 , name:'Control de calidad', checked:false},
+        {id:5 , name:'Sistematización y resguardo', checked:false}
+      ],
+      phasesFilter:[],
+      resourcesFilter:[],
+      usersOptions:[],
+      usersFilter:[]
+    };
+    this.getUsers();
+  }
 
   searchLabel = async (value) => {
     await ProjectsAPI.getProjectsByLabel(value, (response) => {
@@ -42,8 +48,8 @@ class Options extends Component {
     this.props.showLabelSearch(this.state.resourcesFound, this.state.projectsFound);
   };
 
-  searchFilters = async (phases,resourcesTypes) => {
-    await ResourcesAPI.getResourceByFilter(phases,resourcesTypes, (response) => {
+  searchFilters = async (phases,resources,users) => {
+    await ResourcesAPI.getResourceByFilter(phases,resources,users, (response) => {
       this.setState({
         resourcesFound: response.data.objects
       },() => {
@@ -58,6 +64,14 @@ class Options extends Component {
     }); */
   };
 
+  getUsers = async () => {
+    await UsersAPI.getAllUsers((response) => {
+      this.setState({
+        usersOptions:response.data.objects
+      });
+    });
+  };
+
   handleCheckChange = (e) => {
     const item = e.target.value;
     const isChecked = e.target.checked;
@@ -67,13 +81,14 @@ class Options extends Component {
     this.setState({
       phases: prev
     }, () => {
+      const {phasesFilter,resourcesFilter,usersFilter} = this.state;
       let filters=[];
       this.state.phases.forEach((element) => {
         //console.log('Hola',element);
         if(element.checked){filters.push(element.id);}
       });
       this.setState({phasesFilter:filters},() => {
-        if (filters.length>0) {this.searchFilters(this.state.phasesFilter.join(),this.state.resourcesTypes.join());}
+        if (filters.length>0) {this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());}
       });
       //console.log(filters);
     });
@@ -82,9 +97,22 @@ class Options extends Component {
   handleResourceTypes = (e)  => {
     let types = [];
     e.forEach(item => types.push(item.value));
-    this.setState({resourcesTypes:types},
+    this.setState({resourcesFilter:types},
       () => {
-        this.searchFilters(this.state.phasesFilter.join(),this.state.resourcesTypes.join())
+        const {phasesFilter,resourcesFilter,usersFilter} = this.state;
+        this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());
+      }
+    );
+  };
+
+  handleUsersSelect = (e)  => {
+    let users = [];
+    console.log(e);
+    e.forEach(item => users.push(item.value));
+    this.setState({usersFilter:users},
+      () => {
+        const {phasesFilter,resourcesFilter,usersFilter} = this.state;
+        this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());
       }
     );
   };
@@ -115,11 +143,22 @@ class Options extends Component {
         {id:3 , name:'PostProducción', checked:false},
         {id:4 , name:'Control de calidad', checked:false},
         {id:5 , name:'Sistematización y resguardo', checked:false}
-      ]
+      ],
+      resourcesFilter:[],
+      usersFilter:[]
     });
   };
 
   renderSelect = () => {
+    //this.getUsers();
+    const userOpt = () => {
+      let opts=[];
+      this.state.usersOptions.map( elem => {
+        opts.push({value:elem.id, label:elem.name+' '+elem.surname});
+      });
+      return opts;
+    };
+
     const options = [
       { value: 1, label: 'Video' },
       { value: 3, label: 'Infografia' },
@@ -136,11 +175,21 @@ class Options extends Component {
         <Select
           defaultValue={[]}
           isMulti
-          name="colors"
+          name="resourceTypes"
           options={options}
           className="home__options_select"
           classNamePrefix="select"
           onChange={e => this.handleResourceTypes(e)}
+        />
+        <h3>Usuario</h3>
+        <Select
+          defaultValue={[]}
+          isMulti
+          name="responsible"
+          options={userOpt()}
+          className="home__options_select"
+          classNamePrefix="select"
+          onChange={e => this.handleUsersSelect(e)}
         />
       </div>
     );
