@@ -7,6 +7,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
+import Select from 'react-select';
 import ProjectsAPI from '../api/ProjectsAPI';
 import ResourcesAPI from '../api/ResourcesAPI';
 import "./Options.css";
@@ -17,14 +18,14 @@ class Options extends Component {
   state = {
     resourcesFound: [],
     projectsFound: [],
-    phases:[{id:1 , name:'PreProducción'},
-      {id:2 , name:'Producción'},
-      {id:3 , name:'PostProducción'},
-      {id:4 , name:'Control de calidad'},
-      {id:5 , name:'Sistematización y resguardo'}
+    phases:[{id:1 , name:'PreProducción', checked:false},
+      {id:2 , name:'Producción', checked:false},
+      {id:3 , name:'PostProducción', checked:false},
+      {id:4 , name:'Control de calidad', checked:false},
+      {id:5 , name:'Sistematización y resguardo', checked:false}
     ],
-    checkedItems: new Map()
-
+    phasesFilter:[],
+    resourcesTypes:[]
   };
 
   searchLabel = async (value) => {
@@ -41,10 +42,10 @@ class Options extends Component {
     this.props.showLabelSearch(this.state.resourcesFound, this.state.projectsFound);
   };
 
-  searchFilters = async (value) => {
-    await ProjectsAPI.getProjectsByFilter(value, (response) => {
+  searchFilters = async (phases,resourcesTypes) => {
+    await ResourcesAPI.getResourceByFilter(phases,resourcesTypes, (response) => {
       this.setState({
-        projectsFound: response.data.objects
+        resourcesFound: response.data.objects
       },() => {
         this.props.showLabelSearch(this.state.resourcesFound, this.state.projectsFound);
       });
@@ -60,34 +61,89 @@ class Options extends Component {
   handleCheckChange = (e) => {
     const item = e.target.value;
     const isChecked = e.target.checked;
-    this.setState(prevState => ({
-      checkedItems: prevState.checkedItems.set(item, isChecked)
-    }), () => {
+    console.log(item,isChecked);
+    let prev = this.state.phases;
+    prev[item-1].checked = isChecked;
+    this.setState({
+      phases: prev
+    }, () => {
       let filters=[];
-      this.state.checkedItems.forEach((value,key) => {
-        //console.log('Hola',key,value);
-        if(value){filters.push(key);}
+      this.state.phases.forEach((element) => {
+        //console.log('Hola',element);
+        if(element.checked){filters.push(element.id);}
       });
-      this.searchFilters(filters.join());
+      this.setState({phasesFilter:filters},() => {
+        if (filters.length>0) {this.searchFilters(this.state.phasesFilter.join(),this.state.resourcesTypes.join());}
+      });
+      //console.log(filters);
     });
   }
+
+  handleResourceTypes = (e)  => {
+    let types = [];
+    e.forEach(item => types.push(item.value));
+    this.setState({resourcesTypes:types},
+      () => {
+        this.searchFilters(this.state.phasesFilter.join(),this.state.resourcesTypes.join())
+      }
+    );
+  };
 
   renderFilters = () => {
     console.log('Mostar filtros');
     return (<FormControl component="fieldset" className={'formControl'}>
       <FormLabel component="legend">Fases</FormLabel>
-      <FormGroup row>
+      <FormGroup>
         {this.state.phases.map(item => (
           <div key={item.id}> 
             <FormControlLabel
               control={
-                <Checkbox onChange={this.handleCheckChange} checked={this.state.checkedItems.get(item.id)} value={item.id} />
+                <Checkbox onChange={this.handleCheckChange} checked={item.checked} value={item.id} />
               }
               label={item.name}
             /></div>
         ))}
       </FormGroup>
     </FormControl>);
+  };
+
+  clearFilters = () => {
+    console.log('Limpiando');
+    this.setState({
+      phases: [{id:1 , name:'PreProducción', checked:false},
+        {id:2 , name:'Producción', checked:false},
+        {id:3 , name:'PostProducción', checked:false},
+        {id:4 , name:'Control de calidad', checked:false},
+        {id:5 , name:'Sistematización y resguardo', checked:false}
+      ]
+    });
+  };
+
+  renderSelect = () => {
+    const options = [
+      { value: 1, label: 'Video' },
+      { value: 3, label: 'Infografia' },
+      { value: 5, label: 'Icono' },
+      { value: 6, label: 'Banner' },
+      { value: 7, label: 'Dibujo' },
+      { value: 8, label: 'Diseño interactivo' },
+      { value: 6, label: 'Banner' },
+    ];
+
+    return (
+      <div>
+        <h3>Tipo de Recurso</h3>
+        <Select
+          defaultValue={[]}
+          isMulti
+          name="colors"
+          options={options}
+          className="home__options_select"
+          classNamePrefix="select"
+          onChange={e => this.handleResourceTypes(e)}
+        />
+      </div>
+    );
   };
 
   render() {
@@ -98,18 +154,25 @@ class Options extends Component {
             <div>
 
               <Button key={i} variant="outlined" className="home__button"
-                onClick={() => this.props.showOption(actual)}>
+                onClick={() => {
+                  this.props.showOption(actual);
+                  this.clearFilters();  
+                }}>
                 {actual}
               </Button>
               {this.renderFilters()}
             </div>
             :
             (actual.toString() === "Todos los recursos" &&
-              <Button key={i} variant="outlined" className="home__button"
-                onClick={() => this.props.showOption(actual)}>
-                {actual}
-              </Button>)
+            <Button key={i} variant="outlined" className="home__button"
+              onClick={() => {
+                this.props.showOption(actual);
+                this.clearFilters();
+              }}>
+              {actual}
+            </Button>)
         ))}
+        {this.renderSelect()}
         <TextField
           id="standard-with-placeholder"
           label="Buscar por etiqueta"
