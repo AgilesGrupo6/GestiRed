@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = "https://gestiredback.herokuapp.com";
+const baseURL = "https://gestiredback-dev.herokuapp.com";
 
 const getAllResources = (onComplete, onError) => {
   const url = baseURL + "/gestired/resource/";
@@ -34,11 +34,30 @@ const getResourceStages = (idResource, onComplete, onError) => {
     .catch(onError ? onError : (error) => console.log(error));
 };
 
+const getResourceByFilter = (phases,resourcesTypes,users, onComplete, onError) => {
+  console.log('fase',phases,'tipo',resourcesTypes,'usuario',users);
+  let url = baseURL + '/gestired/resourcesfilters/?';
+  if(phases !== ""){
+    url=url+'phases='+phases;
+  }
+  if(resourcesTypes !== ""){
+    url = url + '&resourceType=' + resourcesTypes;
+  }
+  if(users !== ""){
+    url = url + '&responsible=' + users;
+  }
+  console.log('consultando: ',url);
+  axios.get(url)
+    .then(onComplete ? onComplete : (response) => console.log(response))
+    .catch(onError ? onError : (error) => console.log(error));
+};
+
 const ResourcesAPI = {
   getAllResources,
   getResourceByLabel,
   getResourceById,
-  getResourceStages
+  getResourceStages,
+  getResourceByFilter
 };
 
 export default ResourcesAPI;
