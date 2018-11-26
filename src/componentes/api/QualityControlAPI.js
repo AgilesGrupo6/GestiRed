@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const baseURL = "https://gestiredback-dev.herokuapp.com";
+import baseURL from './config';
 
 const getQualityControl = (onComplete, onError) => {
   const url = baseURL + "/gestired/qualityControl/";

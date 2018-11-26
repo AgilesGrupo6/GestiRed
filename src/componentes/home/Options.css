@@ -1,6 +1,6 @@
 .home__options-card {
   width: 25vw;
-  height: 500px;
+  height: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +8,7 @@
   position: absolute;
   right: 5vh;
   top: 15vh;
+  overflow-y: auto!important;
 }
 
 .home__button {
@@ -17,4 +18,16 @@
 
 .home__text-field {
   width: 200px;
+}
+
+.home__options_select {
+  width: 200px;
+}
+
+.formControl {
+  text-align: initial;
+}
+
+.home__button-all-resources {
+  margin-top: 110px!important;
 }

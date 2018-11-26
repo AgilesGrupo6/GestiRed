@@ -144,7 +144,11 @@ class Home extends Component {
                 /> :
                 (this.state.seeInfoResource ?
                   <Timeline
-                    resources={this.state.resourcesByQualityControl ? this.state.qualityControlResources : this.state.currentProject.resources}
+                    resources={this.state.labelResources.length>0? 
+                      this.state.labelResources :
+                      (this.state.resourcesByQualityControl ? 
+                        this.state.qualityControlResources : 
+                        this.state.currentProject.resources)}
                     resource={this.state.currentResource}
                     fakeCurrentUser={this.state.fakeCurrentUser}/> :
                   (this.state.seeSearches ?

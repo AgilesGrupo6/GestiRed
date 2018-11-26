@@ -1,6 +1,6 @@
 import axios from 'axios';
+import baseURL from './config';
 
-const baseURL = "https://gestiredback-dev.herokuapp.com";
 
 const getRoles = (onComplete, onError) => {
   const url = baseURL + "/gestired/rol/";
