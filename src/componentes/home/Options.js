@@ -87,7 +87,7 @@ class Options extends Component {
       });
       this.setState({phasesFilter:filters},() => {
         const {phasesFilter,resourcesFilter,usersFilter} = this.state;
-        if (filters.length>0) {this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());}
+        this.searchFilters(phasesFilter.join(),resourcesFilter.join(),usersFilter.join());
       });
     });
   }
