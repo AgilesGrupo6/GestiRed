@@ -8,6 +8,7 @@
   position: absolute;
   right: 5vh;
   top: 15vh;
+  overflow-y: auto!important;
 }
 
 .home__button {
@@ -21,4 +22,12 @@
 
 .home__options_select {
   width: 200px;
+}
+
+.formControl {
+  text-align: initial;
+}
+
+.home__button-all-resources {
+  margin-top: 110px!important;
 }

@@ -210,7 +210,7 @@ class Options extends Component {
             </div>
             :
             (actual.toString() === "Todos los recursos" &&
-            <Button key={i} variant="outlined" className="home__button"
+            <Button key={i} variant="outlined" className="home__button home__button-all-resources"
               onClick={() => {
                 this.props.showOption(actual);
                 this.clearFilters();
