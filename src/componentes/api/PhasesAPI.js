@@ -1,6 +1,6 @@
 import axios from 'axios';
+import baseURL from './config';
 
-const baseURL = "https://gestiredback.herokuapp.com";
 
 const createNewPhase = (data, onComplete, onError) => {
   const url = baseURL + "/gestired/phase/";
