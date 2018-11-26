@@ -38,7 +38,7 @@ const getResourceByFilter = (phases,resourcesTypes,users, onComplete, onError) =
   console.log('fase',phases,'tipo',resourcesTypes,'usuario',users);
   let url = baseURL + '/gestired/resourcesfilters/?';
   if(phases !== ""){
-    url=url+'phases='+phases;
+    url=url+'phaseType='+phases;
   }
   if(resourcesTypes !== ""){
     url = url + '&resourceType=' + resourcesTypes;
